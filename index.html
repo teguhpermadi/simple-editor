@@ -20,7 +20,7 @@
 
 <body style="background: #f6f4f4; overflow: hidden">
 
-  <style>
+  <!-- <style>
     *body {
       margin: 0;
     }
@@ -77,18 +77,19 @@
       width: 300px;
       height: 60px;
     }
-  </style>
+  </style> -->
 
   <div class="row">
     <div class="col-md-6">
-
-      <div id="navbar">
+      <input type="text" id="imageurl" class="form-control" style="margin-bottom: 10">
+      <button class="btn btn-primary" id="imageload" style="margin-bottom: 10">load image</button>
+      <div id="navbar" style="margin-bottom: 10">
         <button type="button" onclick="zoomin()"> Zoom In</button>
         <button type="button" onclick="zoomout()"> Zoom Out</button>
       </div>
 
-      <div class="main dragscroll">
-        <img id="map" src="http://www.worldatlas.com/webimage/countrys/europelargesm.jpg" />
+      <div class="img-wrapper" style="overflow: auto; width: 650px; height: 500px;">
+        <img id="image" />
       </div>
 
     </div>
@@ -112,8 +113,10 @@
     $("#summernote").summernote({
       placeholder: 'Hello Bootstrap 4',
       tabsize: 2,
-      height: 100
+      height: 300,
     });
+
+
   });
 </script>
 <script type="text/javascript">
@@ -129,11 +132,17 @@
 
     $('#summernote').summernote('editor.restoreRange');
     $('#summernote').summernote('editor.focus');
-    $('#summernote').summernote('editor.insertText', ' ' + tex);
+    $('#summernote').summernote('editor.insertText', '<tex>' + tex + '</tex>');
   });
 
+  $('#imageload').on('click', function () {
+    var url = $('#imageurl').val()
+    // alert(url)
+    $('#image').attr('src', url)
+  })
+
   function zoomin() {
-    var myImg = document.getElementById("map");
+    var myImg = document.getElementById("image");
     var currWidth = myImg.clientWidth;
     if (currWidth == 2500) return false;
     else {
@@ -142,7 +151,7 @@
   }
 
   function zoomout() {
-    var myImg = document.getElementById("map");
+    var myImg = document.getElementById("image");
     var currWidth = myImg.clientWidth;
     if (currWidth == 100) return false;
     else {
