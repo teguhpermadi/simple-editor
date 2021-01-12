@@ -14,68 +14,31 @@
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
-  <!-- zoom -->
-  <style>
-    @import url("smoot-zoom/alottazoom.css");
-  </style>
-  <style>
-    @import url("smoot-zoom/example/example.css");
-  </style>
-  <script src="smoot-zoom/alottazoom.min.js"></script>
-  <script>
-    (function ($) {
-      $(document).ready(function () {
-        $("#wrapper").alottazoom({
-          zoom: "fill",
-          marker_activate_callback: function ($alottazoom, $marker) {
-            $(".marker-content-" + $marker.attr("id")).slideDown("slow");
-          },
-          marker_deactivate_callback: function ($alottazoom, $marker) {
-            $(".marker-content-" + $marker.attr("id")).slideUp("fast");
-          },
-        });
-      });
-    })(jQuery);
-  </script>
-
-
-
 </head>
 
 <body>
-  <div class="container">
     <div class="row">
       <div class="col-md-6">
         <div class="row">
           <input type="text" class="form-control" id="urlimage" />
           <button class="btn btn-primary" id="loadimage">Load image</button>
+          <button type="button" class="btn btn-warning" onclick="zoomin()"> Zoom In</button>
+          <button type="button" class="btn btn-warning" onclick="zoomout()"> Zoom Out</button>
         </div>
-        <div id="wrapper">
-          <img src="tes.jpg" />
-      
-        </div>
-        <div id="directional">
-          <a id="directional-up" href="#" onclick="$('#wrapper').alottazoom('shift', 0, 150); return false;">Up</a>
-          <div id="directional-middle">
-            <a id="directional-left" href="#" onclick="$('#wrapper').alottazoom('shift', 150, 0); return false;">Left</a>
-            <a id="directional-reset" href="#" onclick="$('#wrapper').alottazoom('reset'); return false;">Reset</a>
-            <a id="directional-right" href="#" onclick="$('#wrapper').alottazoom('shift', -150, 0); return false;">Right</a>
-          </div>
-          <a id="directional-down" href="#" onclick="$('#wrapper').alottazoom('shift', 0, -150); return false;">Down</a>
+       
+        <div id="wrapper" style="width: 750px; height: 600px; overflow: auto;">
+          <img id='image' />
         </div>
 
       </div>
       <div class="col-md-6">
         <div id="answer" style="margin-bottom: 10"></div>
         <button id="showlatex" style="margin-bottom: 10">insert latex</button>
-        <!-- <div id="latex"></div> -->
         <div id="summernote"></div>
       </div>
     </div>
-  </div>
 </body>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 <script src="lib/mathquill.min.js"></script>
 <script src="lib/matheditor.js"></script>
 
@@ -109,6 +72,24 @@
     var url = $('#urlimage').val()
     $('#image').attr('src', url)
   })
+
+  function zoomin() {
+    var myImg = document.getElementById("image");
+    var currWidth = myImg.clientWidth;
+    if (currWidth == 2500) return false;
+    else {
+      myImg.style.width = (currWidth + 100) + "px";
+    }
+  }
+
+  function zoomout() {
+    var myImg = document.getElementById("image");
+    var currWidth = myImg.clientWidth;
+    if (currWidth == 100) return false;
+    else {
+      myImg.style.width = (currWidth - 100) + "px";
+    }
+  }
 </script>
 
 </html>
